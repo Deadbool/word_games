@@ -5,11 +5,11 @@ package part_1.wg.common;
 public class Letter {
 	
 	// === Attributes ===
-	private char let; // The "letter"
+	private String let; // The "letter", String because of the "Qu" letter of topword
 	private int val; // it's value (points)
 	
 	// === Constructor ===
-	public Letter(char let, int val) {
+	public Letter(String let, int val) {
 		this.let = let;
 		this.val = val;
 	}
@@ -20,10 +20,10 @@ public class Letter {
 	}
 	
 	// === Getters & Setters ===
-	public char getLet() {
+	public String getLet() {
 		return let;
 	}
-	public void setLet(char let) {
+	public void setLet(String let) {
 		this.let = let;
 	}
 	public int getVal() {

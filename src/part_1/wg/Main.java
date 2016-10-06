@@ -1,14 +1,14 @@
 package part_1.wg;
 
-import part_1.wg.common.Letter;
+import part_1.wg.common.Bag;
+import part_1.wg.topword.TopwordBag;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Letter[] word = new Letter[] {new Letter('a', 0), new Letter('b', 0), new Letter('c', 0)};
+		Bag bag = new TopwordBag();
 		
-		for (Letter l : word) {
-			System.out.print(l);
-		}
+		System.out.println(bag);
+		System.out.println(bag.getLetters().size());
 	}
 }

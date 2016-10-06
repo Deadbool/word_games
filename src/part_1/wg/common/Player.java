@@ -6,9 +6,9 @@ public class Player {
 	static public int RACK_SIZE = 7; // Max letter count on each rack
 	
 	// === Attributes ===
-	private int score;
-	private String name;
-	private HashSet<Letter> rack;
+	protected int score;
+	protected String name;
+	protected HashSet<Letter> rack;
 	
 	// === Constructor ===
 	public Player(String name) {
@@ -37,5 +37,11 @@ public class Player {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public HashSet<Letter> getRack() {
+		return rack;
+	}
+	public void setRack(HashSet<Letter> rack) {
+		this.rack = rack;
 	}
 }
