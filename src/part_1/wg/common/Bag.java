@@ -5,22 +5,22 @@ import java.util.Iterator;
 
 public abstract class Bag {
 	// === Attributes ===
-	protected HashSet<Letter> letters;
+	protected HashSet<Tile> content;
 	
 	// === Methods ===
 	public String toString() {
 		String s = "Bag: ";
-		Iterator<Letter> it = this.letters.iterator();
+		Iterator<Tile> it = this.content.iterator();
 		while (it.hasNext())
 			s += it.next();
 		return s + "\n";
 	}
 	
 	// === Getters & Setters ===
-	public HashSet<Letter> getLetters() {
-		return letters;
+	public HashSet<Tile> getLetters() {
+		return content;
 	}
-	public void setLetters(HashSet<Letter> letters) {
-		this.letters = letters;
+	public void setLetters(HashSet<Tile> content) {
+		this.content = content;
 	}
 }

@@ -1,25 +1,30 @@
 package part_1.wg.common;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Player {
-	static public int RACK_SIZE = 7; // Max letter count on each rack
+	static final public int RACK_SIZE = 7; // Max letter count on each rack
 	
 	// === Attributes ===
 	protected int score;
 	protected String name;
-	protected HashSet<Letter> rack;
+	protected HashSet<Tile> rack;
 	
 	// === Constructor ===
 	public Player(String name) {
 		this.score = 0;
 		this.setName(name);
-		this.rack = new HashSet<Letter>();
+		this.rack = new HashSet<Tile>();
 	}
 	
 	// === Methods ===
 	public String toString() {
-		return this.name + " (score: " + this.score + ")";
+		String r = this.name + " (score: " + this.score + ") has ";
+		Iterator<Tile> it = this.rack.iterator();
+		while (it.hasNext())
+			r += it.next();
+		return r + "\n";
 	}
 	
 	// === Getters & Setters ===
@@ -38,10 +43,10 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public HashSet<Letter> getRack() {
+	public HashSet<Tile> getRack() {
 		return rack;
 	}
-	public void setRack(HashSet<Letter> rack) {
+	public void setRack(HashSet<Tile> rack) {
 		this.rack = rack;
 	}
 }
