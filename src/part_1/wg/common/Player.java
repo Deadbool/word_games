@@ -20,11 +20,11 @@ public class Player {
 	
 	// === Methods ===
 	public String toString() {
-		String r = this.name + " (score: " + this.score + ") has ";
+		String r = this.name + " (score: " + this.score + ") has this rack : ";
 		Iterator<Tile> it = this.rack.iterator();
 		while (it.hasNext())
 			r += it.next();
-		return r + "\n";
+		return r;
 	}
 	
 	// === Getters & Setters ===
