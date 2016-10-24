@@ -16,6 +16,9 @@ public class Cell {
 	public ArrayList<Tile> getStack() {
 		return stack;
 	}
+	public Tile getTopTile() {
+		return (stack.size() > 0) ? stack.get(stack.size()-1) : null;
+	}
 	public void setStack(ArrayList<Tile> stack) {
 		this.stack = stack;
 	}

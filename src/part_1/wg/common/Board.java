@@ -9,6 +9,26 @@ public class Board {
 	public Board(int size) {
 		this.size = size;
 		this.grid = new Cell[size][size];
+		for (int r=0; r < size; r++) {
+			for (int c=0; c < size; c++) {
+				this.grid[r][c] = new Cell();
+			}
+		}
+	}
+	
+	// === Methods ===
+	public String toString() {
+		String s = "";
+		
+		for (Cell[] row : grid) {
+			for (Cell cell : row) {
+				Tile tile = cell.getTopTile();
+				s += ((tile != null) ? tile : ".") + " ";
+			}
+			s += "\n";
+		}
+		
+		return s;
 	}
 
 	// === Getters & Setters ===

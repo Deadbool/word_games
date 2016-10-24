@@ -1,5 +1,6 @@
 package part_1.wg.topword;
 
+import part_1.wg.common.Bag;
 import part_1.wg.common.Board;
 import part_1.wg.common.Game;
 import part_1.wg.common.Player;
@@ -11,5 +12,6 @@ public class TopwordGame extends Game {
 	public TopwordGame(Player...players) {
 		super(players);
 		super.board = new Board(TopwordGame.TOPWORD_BOARD_SIZE);
+		super.bag = new Bag("config/topword_bag_fr.txt");
 	}
 }

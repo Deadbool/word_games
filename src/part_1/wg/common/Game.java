@@ -3,14 +3,19 @@ package part_1.wg.common;
 import java.util.ArrayList;
 
 public abstract class Game {
+	static final public int MAX_PLAYER_COUNT = 4;
+	
 	// === Attributes ===
 	protected ArrayList<Player> players;
 	protected Board board;
-	
+	protected Bag bag;
+
 	// === Constructor ===
 	public Game(Player... players) {
 		this.players = new ArrayList<Player>();
 		for (Player p : players) {
+			if (this.players.size() >= MAX_PLAYER_COUNT)
+				break;
 			this.players.add(p);
 		}
 	}
@@ -27,5 +32,11 @@ public abstract class Game {
 	}
 	public void setBoard(Board board) {
 		this.board = board;
+	}
+	public Bag getBag() {
+		return bag;
+	}
+	public void setBag(Bag bag) {
+		this.bag = bag;
 	}
 }
