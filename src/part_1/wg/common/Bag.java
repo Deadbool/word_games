@@ -2,7 +2,7 @@ package part_1.wg.common;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,15 +14,15 @@ public class Bag {
 	static private final int INDEX_FOR_VALUE = 2;
 	
 	// === Attributes ===
-	protected HashSet<Tile> content;
+	protected ArrayList<Tile> content;
 	
 	// Constructor
 	public Bag() {
-		this.content = new HashSet<Tile>();
+		this.content = new ArrayList<Tile>();
 	}
 	
 	public Bag(String config_file_path) {
-		this.content = new HashSet<Tile>();
+		this.content = new ArrayList<Tile>();
 		try {
 			List<String> lines = Files.lines(Paths.get(config_file_path)).collect(Collectors.toList());
 			
@@ -59,10 +59,13 @@ public class Bag {
 	}
 	
 	// === Getters & Setters ===
-	public HashSet<Tile> getLetters() {
+	public ArrayList<Tile> getLetters() {
 		return content;
 	}
-	public void setLetters(HashSet<Tile> content) {
+	public void setLetters(ArrayList<Tile> content) {
 		this.content = content;
+	}
+	public int size() {
+		return this.content.size();
 	}
 }

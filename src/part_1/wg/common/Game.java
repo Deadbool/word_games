@@ -20,6 +20,20 @@ public abstract class Game {
 		}
 	}
 	
+	// === Methods ===
+	public void launch() {
+		playTurn(players.get(0));
+		
+		// Players rotation
+		Player tmp_player = players.get(0);
+		players.remove(0);
+		players.add(tmp_player);
+	}
+	
+	public abstract void playTurn(Player player);
+	
+	public abstract boolean applyWord(Word word);
+	
 	// === Getters & Setters
 	public ArrayList<Player> getPlayers() {
 		return players;

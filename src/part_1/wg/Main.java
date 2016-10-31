@@ -15,10 +15,5 @@ public class Main {
 		Game scrabble = new ScrabbleGame(p1, p2);
 		System.out.println(scrabble.getBag());
 		System.out.println(scrabble.getBoard());
-		
-		System.out.println("\nTopword :");
-		Game topword = new TopwordGame(p1, p2);
-		System.out.println(topword.getBag());
-		System.out.println(topword.getBoard());
 	}
 }
