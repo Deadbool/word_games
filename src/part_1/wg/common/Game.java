@@ -22,17 +22,28 @@ public abstract class Game {
 	
 	// === Methods ===
 	public void launch() {
-		playTurn(players.get(0));
+		// Initial draw
+		for (Player player : players) {
+			player.draw(bag);
+		}
 		
-		// Players rotation
-		Player tmp_player = players.get(0);
-		players.remove(0);
-		players.add(tmp_player);
+		while(true) {
+			playTurn(players.get(0));
+			
+			// Win ?
+			if (true)
+				break;
+			
+			// Players rotation
+			Player tmp_player = players.get(0);
+			players.remove(0);
+			players.add(tmp_player);
+		}
 	}
 	
 	public abstract void playTurn(Player player);
 	
-	public abstract boolean applyWord(Word word);
+	public abstract int applyWord(Word word);
 	
 	// === Getters & Setters
 	public ArrayList<Player> getPlayers() {

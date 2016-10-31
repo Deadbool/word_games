@@ -1,8 +1,15 @@
 package part_1.wg.common;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Word {
+	public static final String DICTIONARY_PATH = "config/dico.txt";
 	public static final int HORIZONTAL = 0;
 	public static final int VERTICAL = 1;
 	
@@ -21,6 +28,27 @@ public class Word {
 	}
 
 	// === Methods ===
+	public boolean isValid() {
+		boolean ok = false;
+		String str = this.toString();
+		
+		try {
+			List<String> words = Files.lines(Paths.get(Word.DICTIONARY_PATH)).collect(Collectors.toList());
+			ok = words.contains(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return ok;
+	}
+	
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		for (Tile tile : tiles) {
+			str.append(tile.getLet());
+		}
+		return str.toString();
+	}
 
 	// === Getters & Setters ===
 	public ArrayList<Tile> getTiles() {
@@ -46,5 +74,11 @@ public class Word {
 	}
 	public void setOrientation(int orientation) {
 		this.orientation = orientation;
+	}
+	public int getRowOfTile(int tileIndex) {
+		return (orientation == Word.HORIZONTAL) ? 0 : row + tileIndex;
+	}
+	public int getColOfTile(int tileIndex) {
+		return (orientation == Word.VERTICAL) ? 0 : col + tileIndex;
 	}
 }

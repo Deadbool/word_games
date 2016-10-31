@@ -30,6 +30,10 @@ public class Board {
 		
 		return s;
 	}
+	
+	public void putTile(Tile tile, int row, int col) {
+		this.grid[row][col].getStack().add(tile);
+	}
 
 	// === Getters & Setters ===
 	public int getSize() {

@@ -23,7 +23,7 @@ public class TopwordGame extends Game {
 	}
 
 	@Override
-	public boolean applyWord(Word word) {
-		return false;
+	public int applyWord(Word word) {
+		return 0;
 	}
 }

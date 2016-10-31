@@ -1,9 +1,9 @@
 package part_1.wg.common;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Player {
 	static final public int RACK_SIZE = 7; // Max letter count on each rack
@@ -29,6 +29,7 @@ public class Player {
 		return r;
 	}
 	
+	@SuppressWarnings("unused")
 	public Word askForAWord() {
 		ArrayList<Tile> tiles = new ArrayList<Tile>();
 		int r = 0;
@@ -36,14 +37,41 @@ public class Player {
 		int orientation = Word.HORIZONTAL;
 		
 		// Here we ask to the player for a word
-		tiles.add(rack.get(0));
-		tiles.add(rack.get(1));
-		tiles.add(rack.get(2));
 		
-		for (Tile tile : tiles) {
-			rack.remove(tile);
-		}
+		Scanner scan = new Scanner(System.in);
+		boolean stop, found;
 		
+		do {
+			stop = true;
+			tiles.clear();
+			
+			System.out.println("Rack: " + rack + "\nWrite your word:");
+			String input = scan.nextLine().toUpperCase();
+			
+			for (int i=0; i < input.length(); i++) {
+				found = false;
+				for (Tile tile : rack) {
+					if (tile.getLet().equals(input.substring(i,i+1))) {
+						tiles.add(tile);
+						rack.remove(tile);
+						found = true;
+						break;
+					}
+				}
+				
+				if (!found) {
+					// If we arrive here it's because an input letter is not in rack
+					stop = false;
+					rack.addAll(tiles);
+					System.out.println("You cannot write this !");
+					break;
+				}
+			}
+			
+		} while (!stop);
+		
+		scan.close();
+				
 		return new Word(tiles, r, c, orientation);
 	}
 	
