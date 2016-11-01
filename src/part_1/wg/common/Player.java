@@ -29,30 +29,39 @@ public class Player {
 		return r;
 	}
 	
-	@SuppressWarnings("unused")
-	public Word askForAWord() {
-		ArrayList<Tile> tiles = new ArrayList<Tile>();
-		int r = 0;
-		int c = 0;
-		int orientation = Word.HORIZONTAL;
-		
-		// Here we ask to the player for a word
-		
+	public Word askForAWord(Board board) {
+		Word word;
 		Scanner scan = new Scanner(System.in);
 		boolean stop, found;
+		String input;
 		
 		do {
 			stop = true;
-			tiles.clear();
+			word = new Word();
+	
+			System.out.println("Rack: " + rack);
 			
-			System.out.println("Rack: " + rack + "\nWrite your word:");
-			String input = scan.nextLine().toUpperCase();
+			System.out.print("Row ? "); word.setRow(Integer.parseInt(scan.nextLine()));
+			System.out.print("Column ? "); word.setCol(Integer.parseInt(scan.nextLine()));
+			System.out.print("Orientation ? "); word.setOrientation(Integer.parseInt(scan.nextLine()));
+			
+			System.out.print("Available cells:");
+			for (int i=0; i < Player.RACK_SIZE; i++) {
+				System.out.print(" " +
+						board.cell(word.getRow() +i*Word.ROW_INC[word.getOrientation()],
+								word.getCol() + i*Word.COL_INC[word.getOrientation()]));
+	
+			}
+			System.out.println("");
+			
+			System.out.print("Word ? "); input = scan.nextLine().toUpperCase();
 			
 			for (int i=0; i < input.length(); i++) {
 				found = false;
+				String let = input.substring(i,i+1);
 				for (Tile tile : rack) {
-					if (tile.getLet().equals(input.substring(i,i+1))) {
-						tiles.add(tile);
+					if (tile.getLet().equals(let)) {
+						word.addTile(tile);
 						rack.remove(tile);
 						found = true;
 						break;
@@ -60,19 +69,24 @@ public class Player {
 				}
 				
 				if (!found) {
-					// If we arrive here it's because an input letter is not in rack
-					stop = false;
-					rack.addAll(tiles);
-					System.out.println("You cannot write this !");
-					break;
+					Cell cell = board.cell(word.getRow() + i*Word.ROW_INC[word.getOrientation()], 
+							word.getCol() + i*Word.COL_INC[word.getOrientation()]);
+					
+					if (cell.count() > 0 && cell.getTopTile().getLet().equals(let)) {
+						word.addTile(cell.getTopTile());
+					} else {
+						// If we arrive here it's because an input letter is not in rack -> ask again
+						stop = false;
+						rack.addAll(word.getTiles());
+						System.out.println("You cannot write " + input + " here !");
+						break;
+					}
 				}
 			}
 			
 		} while (!stop);
-		
-		scan.close();
-				
-		return new Word(tiles, r, c, orientation);
+					
+		return word;
 	}
 	
 	public void draw(Bag bag) {

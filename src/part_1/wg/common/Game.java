@@ -28,11 +28,8 @@ public abstract class Game {
 		}
 		
 		while(true) {
+			System.out.println(board);
 			playTurn(players.get(0));
-			
-			// Win ?
-			if (true)
-				break;
 			
 			// Players rotation
 			Player tmp_player = players.get(0);

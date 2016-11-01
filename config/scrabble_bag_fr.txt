@@ -1,4 +1,4 @@
-letter:count:value -> skip this line
+letter:count:value -> skip this line (no jokers for the moment)
 A:9:1
 B:2:3
 C:2:3
@@ -25,4 +25,3 @@ W:1:10
 X:1:10
 Y:1:10
 Z:1:10
-*:2:0

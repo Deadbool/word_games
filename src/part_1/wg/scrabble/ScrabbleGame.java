@@ -2,6 +2,7 @@ package part_1.wg.scrabble;
 
 import part_1.wg.common.Bag;
 import part_1.wg.common.Board;
+import part_1.wg.common.Cell;
 import part_1.wg.common.Game;
 import part_1.wg.common.Player;
 import part_1.wg.common.Word;
@@ -19,7 +20,7 @@ public class ScrabbleGame extends Game {
 	// === Methods ===
 	@Override
 	public void playTurn(Player player) {
-		Word word = player.askForAWord();
+		Word word = player.askForAWord(board);
 		System.out.print("Trying " + word + "... ");
 		
 		int score = applyWord(word);
@@ -38,9 +39,10 @@ public class ScrabbleGame extends Game {
 		if (!word.isValid())
 			return 0;
 				
-		// Are all cells empty ?
+		// Are all cells empty (or used in the word) ?
 		for (int i=0; i < word.getTiles().size(); i++) {
-			if (board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)].count() > 0)
+			Cell cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)];
+			if (cell.count() > 0 && !cell.getTopTile().equals(word.getTiles().get(i)))
 				return 0;
 			
 			// TODO environment check -> for now we can drop a word anywhere

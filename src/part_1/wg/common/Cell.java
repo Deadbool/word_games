@@ -12,6 +12,10 @@ public class Cell {
 		this.stack = new ArrayList<Tile>();
 	}
 	
+	public String toString() {
+		return (count() > 0) ? getTopTile().toString() : ".";
+	}
+	
 	// === Getters & Setters
 	public ArrayList<Tile> getStack() {
 		return stack;

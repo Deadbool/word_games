@@ -22,8 +22,7 @@ public class Board {
 		
 		for (Cell[] row : grid) {
 			for (Cell cell : row) {
-				Tile tile = cell.getTopTile();
-				s += ((tile != null) ? tile : ".") + " ";
+				s += cell + " ";
 			}
 			s += "\n";
 		}
@@ -44,6 +43,9 @@ public class Board {
 	}
 	public Cell[][] getGrid() {
 		return grid;
+	}
+	public Cell cell(int r, int c) {
+		return grid[r][c];
 	}
 	public void setGrid(Cell[][] grid) {
 		this.grid = grid;
