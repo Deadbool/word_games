@@ -8,10 +8,15 @@ import part_1.wg.common.Player;
 import part_1.wg.common.Word;
 
 public class ScrabbleGame extends Game {
+	private static final long serialVersionUID = 1L;
 	static final public int SCRABBLE_BOARD_SIZE = 15;
 	
+	public static ScrabbleGame newGame(Player...players) {
+		return new ScrabbleGame(players);
+	}
+	
 	// === Constructor ===
-	public ScrabbleGame(Player...players) {
+	protected ScrabbleGame(Player...players) {
 		super(players);
 		super.board = new Board(ScrabbleGame.SCRABBLE_BOARD_SIZE);
 		super.bag = new Bag("config/scrabble_bag_fr.txt");

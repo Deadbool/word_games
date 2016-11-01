@@ -3,7 +3,8 @@ package part_1.wg.common;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Scanner;
+
+import part_1.wg.Main;
 
 public class Player {
 	static final public int RACK_SIZE = 7; // Max letter count on each rack
@@ -31,7 +32,6 @@ public class Player {
 	
 	public Word askForAWord(Board board) {
 		Word word;
-		Scanner scan = new Scanner(System.in);
 		boolean stop, found;
 		String input;
 		
@@ -41,9 +41,9 @@ public class Player {
 	
 			System.out.println("Rack: " + rack);
 			
-			System.out.print("Row ? "); word.setRow(Integer.parseInt(scan.nextLine()));
-			System.out.print("Column ? "); word.setCol(Integer.parseInt(scan.nextLine()));
-			System.out.print("Orientation ? "); word.setOrientation(Integer.parseInt(scan.nextLine()));
+			System.out.print("Row ? "); word.setRow(Integer.parseInt(Main.STDIN.nextLine()));
+			System.out.print("Column ? "); word.setCol(Integer.parseInt(Main.STDIN.nextLine()));
+			System.out.print("Orientation ? "); word.setOrientation(Integer.parseInt(Main.STDIN.nextLine()));
 			
 			System.out.print("Available cells:");
 			for (int i=0; i < Player.RACK_SIZE; i++) {
@@ -54,7 +54,7 @@ public class Player {
 			}
 			System.out.println("");
 			
-			System.out.print("Word ? "); input = scan.nextLine().toUpperCase();
+			System.out.print("Word ? "); input = Main.STDIN.nextLine().toUpperCase();
 			
 			for (int i=0; i < input.length(); i++) {
 				found = false;

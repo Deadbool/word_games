@@ -1,14 +1,12 @@
 package part_1.wg;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
-import part_1.wg.common.Game;
 import part_1.wg.common.Player;
-import part_1.wg.common.Tile;
-import part_1.wg.common.Word;
 import part_1.wg.scrabble.ScrabbleGame;
 
 public class Main {
+	public static final Scanner STDIN = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		Player p1 = new Player("Player 1");
@@ -16,7 +14,7 @@ public class Main {
 		
 		System.out.println("***** Scrabble *****");
 		
-		Game scrabble = new ScrabbleGame(p1, p2);
+		ScrabbleGame scrabble = ScrabbleGame.newGame(p1, p2);
 		
 		scrabble.launch();
 		

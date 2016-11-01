@@ -7,7 +7,12 @@ import part_1.wg.common.Player;
 import part_1.wg.common.Word;
 
 public class TopwordGame extends Game {
+	private static final long serialVersionUID = 1L;
 	static final public int TOPWORD_BOARD_SIZE = 8;
+	
+	public static TopwordGame newGame(Player...players) {
+		return new TopwordGame(players);
+	}
 	
 	// === Constructor ===
 	public TopwordGame(Player...players) {
