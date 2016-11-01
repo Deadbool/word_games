@@ -1,5 +1,6 @@
 package part_1.wg.common;
 
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -7,7 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Bag {
+public class Bag implements Serializable {
+	private static final long serialVersionUID = 1L;
 	static private final String CONFIG_FILES_SEPARATOR = ":";
 	static private final int INDEX_FOR_LETTER = 0;
 	static private final int INDEX_FOR_COUNT = 1;

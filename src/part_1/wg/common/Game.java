@@ -50,6 +50,9 @@ public abstract class Game implements Serializable {
 		}
 		
 		while(true) {
+			for (Player player : players) {
+				System.out.println(player);
+			}
 			System.out.println(board);
 			playTurn(players.get(0));
 			

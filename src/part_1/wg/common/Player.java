@@ -1,12 +1,14 @@
 package part_1.wg.common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
 import part_1.wg.Main;
 
-public class Player {
+public class Player implements Serializable {
+	private static final long serialVersionUID = 1L;
 	static final public int RACK_SIZE = 7; // Max letter count on each rack
 	
 	// === Attributes ===

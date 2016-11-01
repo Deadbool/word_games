@@ -2,6 +2,7 @@ package part_1.wg;
 
 import java.util.Scanner;
 
+import part_1.wg.common.Game;
 import part_1.wg.common.Player;
 import part_1.wg.scrabble.ScrabbleGame;
 
@@ -14,28 +15,12 @@ public class Main {
 		
 		System.out.println("***** Scrabble *****");
 		
-		ScrabbleGame scrabble = ScrabbleGame.newGame(p1, p2);
+		Game scrabble = ScrabbleGame.newGame(p1, p2);
+		
+		/*p1.setScore(10);
+		scrabble.save("saves/test.wg");
+		scrabble = Game.loadGame("saves/test.wg");*/
 		
 		scrabble.launch();
-		
-		System.out.println("\n>> T1 <<");
-		System.out.println(scrabble.getBag());
-		System.out.println(p1);
-		System.out.println(p2);
-		System.out.println(scrabble.getBoard());
-		
-		/*ArrayList<Tile> tiles = new ArrayList<Tile>();
-		tiles.add(new Tile("A", 1));
-		tiles.add(new Tile("H", 4));
-		Word word = new Word(tiles, 0, 0, Word.HORIZONTAL);
-		
-		System.out.print(word+" ");
-		System.out.println((word.isValid()) ? "is valid." : "is not valid");*/
-		
-		System.out.println("\n>> T2 <<");
-		System.out.println(scrabble.getBag());
-		System.out.println(p1);
-		System.out.println(p2);
-		System.out.println(scrabble.getBoard());
 	}
 }

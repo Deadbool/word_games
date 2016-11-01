@@ -1,8 +1,11 @@
 package part_1.wg.common;
 
+import java.io.Serializable;
+
 // TODO composite pattern for words classification from dico.txt
 
-public class Tile {
+public class Tile implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	// === Attributes ===
 	protected String letter; // String because of the "Qu" letter of topword

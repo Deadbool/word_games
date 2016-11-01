@@ -1,8 +1,11 @@
 package part_1.wg.common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cell {
+public class Cell implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	// === Attributes ===
 	protected ArrayList<Tile> stack;
 	
