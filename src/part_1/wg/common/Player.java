@@ -36,6 +36,8 @@ public class Player implements Serializable {
 		Word word;
 		boolean stop, found;
 		String input;
+		Cell cell;
+		int maxSize;
 		
 		do {
 			stop = true;
@@ -48,11 +50,14 @@ public class Player implements Serializable {
 			System.out.print("Orientation ? "); word.setOrientation(Integer.parseInt(Main.STDIN.nextLine()));
 			
 			System.out.print("Available cells:");
-			for (int i=0; i < Player.RACK_SIZE; i++) {
-				System.out.print(" " +
-						board.cell(word.getRow() +i*Word.ROW_INC[word.getOrientation()],
-								word.getCol() + i*Word.COL_INC[word.getOrientation()]));
-	
+			maxSize = Player.RACK_SIZE;
+			for (int i=0; i < maxSize; i++) {
+				cell = board.cell(word.getRow() +i*Word.ROW_INC[word.getOrientation()],
+						word.getCol() + i*Word.COL_INC[word.getOrientation()]);
+				System.out.print(" " + cell);
+				
+				if (cell.count() > 0)
+					++maxSize;
 			}
 			System.out.println("");
 			
@@ -71,7 +76,7 @@ public class Player implements Serializable {
 				}
 				
 				if (!found) {
-					Cell cell = board.cell(word.getRow() + i*Word.ROW_INC[word.getOrientation()], 
+					cell = board.cell(word.getRow() + i*Word.ROW_INC[word.getOrientation()], 
 							word.getCol() + i*Word.COL_INC[word.getOrientation()]);
 					
 					if (cell.count() > 0 && cell.getTopTile().getLet().equals(let)) {

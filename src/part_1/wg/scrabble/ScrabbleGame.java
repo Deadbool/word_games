@@ -1,5 +1,7 @@
 package part_1.wg.scrabble;
 
+import java.util.ArrayList;
+
 import part_1.wg.common.Bag;
 import part_1.wg.common.Board;
 import part_1.wg.common.Cell;
@@ -34,31 +36,49 @@ public class ScrabbleGame extends Game {
 			player.draw(bag);
 			player.setScore(player.getScore() + score);
 		} else {
-			System.out.println(" Sorry, your word is invalid or cannot be placed there.");
 			player.getRack().addAll(word.getTiles());
 		}
 	}
 
 	@Override
 	public int applyWord(Word word) {
-		if (!word.isValid())
+		int score = 0;
+		ArrayList<Word> crossingWords = new ArrayList<Word>();
+		Word w = null;
+		
+		if (!word.isValid()) {
+			System.out.println(word + " is not a valid word !");
 			return 0;
+		}
 				
 		// Are all cells empty (or used in the word) ?
 		for (int i=0; i < word.getTiles().size(); i++) {
 			Cell cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)];
-			if (cell.count() > 0 && !cell.getTopTile().equals(word.getTiles().get(i)))
-				return 0;
 			
-			// TODO environment check -> for now we can drop a word anywhere
+			if (cell.count() > 0 && !cell.getTopTile().equals(word.getTiles().get(i))) {
+				System.out.println(word + " cannot be placed here !");
+				return 0;
+			}
+			
+			// Is there a crossing word at this tile ?
+			w = board.crossingWord(word, i);
+			if (w != null) {
+				// Is this crossing word valid ?
+				if (w.isValid()) {
+					crossingWords.add(w);
+				} else {
+					System.out.println(w + " is not a valid word !");
+					return 0;
+				}
+			}
 		}
 		
 		// Drop the word
-		int score = 0;
 		for (int i=0; i < word.getTiles().size(); i++) {
 			board.putTile(word.getTiles().get(i), word.getRowOfTile(i), word.getColOfTile(i));
-			score += word.getTiles().get(i).getVal();
 		}
+		
+		score += word.score();
 		
 		return score;
 	}

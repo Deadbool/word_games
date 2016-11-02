@@ -37,6 +37,39 @@ public class Board implements Serializable {
 	public void putTile(Tile tile, int row, int col) {
 		this.grid[row][col].getStack().add(tile);
 	}
+	
+	public boolean validPosition(int r, int c) {
+		return r >= 0 && c >= 0 && r < size && c < size;
+	}
+	
+	public Word crossingWord(Word word, int t) {
+		Word cross = new Word(word.getRowOfTile(t), word.getColOfTile(t), 1 - word.getOrientation());
+		int c, r;
+		
+		// Searching for upper/lefter tiles
+		r = cross.getRowOfTile(cross.getRow() - 1);
+		c = cross.getColOfTile(cross.getCol() - 1);
+		while (validPosition(r, c) && grid[r][c].count() > 0) {
+			cross.setRow(r);
+			cross.setCol(c);
+			r = cross.getRowOfTile(cross.getRow() - 1);
+			c = cross.getColOfTile(cross.getCol() - 1);
+		}
+		
+		// Adding all under/righter tile to the crossing word
+		int i = 0;
+		r = cross.getRowOfTile(i);
+		c = cross.getColOfTile(i);
+		while (validPosition(r, c) && grid[r][c].count() > 0) {
+			cross.addTile(grid[r][c].getTopTile());
+			++i;
+			r = cross.getRowOfTile(i);
+			c = cross.getColOfTile(i);
+		}
+		
+		// If length == 1 -> there is no "real" crossing word, just the leter itself
+		return (cross.length() > 1) ? cross : null;
+	}
 
 	// === Getters & Setters ===
 	public int getSize() {

@@ -58,6 +58,14 @@ public class Word {
 		return ok;
 	}
 	
+	public int score() {
+		int score = 0;
+		for (Tile tile : tiles) {
+			score += tile.getVal();
+		}
+		return score;
+	}
+	
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		for (Tile tile : tiles) {
@@ -99,5 +107,8 @@ public class Word {
 	}
 	public void addTile(Tile t) {
 		this.tiles.add(t);
+	}
+	public int length() {
+		return this.tiles.size();
 	}
 }
