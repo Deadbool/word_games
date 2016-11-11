@@ -1,6 +1,5 @@
 package part_1.wg.common;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -58,12 +57,28 @@ public class Word {
 		return ok;
 	}
 	
-	public int score() {
+	public int score(Board board) {
 		int score = 0;
-		for (Tile tile : tiles) {
-			score += tile.getVal();
+		Cell cell;
+		int coeff = 1;
+		int bonus = 0;
+		
+		for (int i=0; i < tiles.size(); i++) {
+			bonus = 1;
+			cell = board.getGrid()[getRowOfTile(i)][getColOfTile(i)]; 
+			
+			if (cell.bonus > 0) {
+				if (cell.bonus <= Cell.TRIPLE_LETTER) {
+					bonus = cell.bonus;
+				} else {
+					coeff *= cell.bonus - 5;
+				}
+			}
+			
+			score += tiles.get(i).getVal() * bonus;
 		}
-		return score;
+		
+		return score * coeff;
 	}
 	
 	public String toString() {

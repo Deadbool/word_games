@@ -22,6 +22,70 @@ public class ScrabbleGame extends Game {
 		super(players);
 		super.board = new Board(ScrabbleGame.SCRABBLE_BOARD_SIZE);
 		super.bag = new Bag("config/scrabble_bag_fr.txt");
+		
+		// Bonus cells
+		int center = 7;
+		int bonus = 0;
+		
+		board.getGrid()[center][center].setBonus(Cell.DOUBLE_WORD);
+		for (int i=1; i < center+1; i++) {
+						
+			if (i == 1) {
+				bonus = Cell.DOUBLE_LETTER;
+			} else if (i == 2)
+				bonus = Cell.TRIPLE_LETTER;
+			else if (i == 4) {
+				bonus = Cell.DOUBLE_LETTER;
+				board.getGrid()[center][center + i].setBonus(bonus);
+				board.getGrid()[center][center - i].setBonus(bonus);
+				board.getGrid()[center + i][center].setBonus(bonus);
+				board.getGrid()[center - i][center].setBonus(bonus);
+			} else if (i == center) {
+				bonus = Cell.TRIPLE_WORD;
+				board.getGrid()[center][center + i].setBonus(bonus);
+				board.getGrid()[center][center - i].setBonus(bonus);
+				board.getGrid()[center + i][center].setBonus(bonus);
+				board.getGrid()[center - i][center].setBonus(bonus);
+			} else
+				bonus = Cell.DOUBLE_WORD;
+			
+			board.getGrid()[center + i][center + i].setBonus(bonus);
+			board.getGrid()[center + i][center - i].setBonus(bonus);
+			board.getGrid()[center - i][center + i].setBonus(bonus);
+			board.getGrid()[center - i][center - i].setBonus(bonus);
+		}
+		
+		bonus = Cell.DOUBLE_LETTER;
+		board.getGrid()[center + 1][center + 5].setBonus(bonus);
+		board.getGrid()[center + 1][center - 5].setBonus(bonus);
+		board.getGrid()[center - 1][center + 5].setBonus(bonus);
+		board.getGrid()[center - 1][center - 5].setBonus(bonus);
+
+		board.getGrid()[center + 5][center + 1].setBonus(bonus);
+		board.getGrid()[center - 5][center + 1].setBonus(bonus);
+		board.getGrid()[center + 5][center - 1].setBonus(bonus);
+		board.getGrid()[center - 5][center - 1].setBonus(bonus);
+		
+		board.getGrid()[center + 4][center + 7].setBonus(bonus);
+		board.getGrid()[center + 4][center - 7].setBonus(bonus);
+		board.getGrid()[center - 4][center + 7].setBonus(bonus);
+		board.getGrid()[center - 4][center - 7].setBonus(bonus);
+
+		board.getGrid()[center + 7][center + 4].setBonus(bonus);
+		board.getGrid()[center - 7][center + 4].setBonus(bonus);
+		board.getGrid()[center + 7][center - 4].setBonus(bonus);
+		board.getGrid()[center - 7][center - 4].setBonus(bonus);
+		
+		bonus = Cell.TRIPLE_LETTER;
+		board.getGrid()[center + 2][center + 6].setBonus(bonus);
+		board.getGrid()[center + 2][center - 6].setBonus(bonus);
+		board.getGrid()[center - 2][center + 6].setBonus(bonus);
+		board.getGrid()[center - 2][center - 6].setBonus(bonus);
+
+		board.getGrid()[center + 6][center + 2].setBonus(bonus);
+		board.getGrid()[center - 6][center + 2].setBonus(bonus);
+		board.getGrid()[center + 6][center - 2].setBonus(bonus);
+		board.getGrid()[center - 6][center - 2].setBonus(bonus);
 	}
 
 	// === Methods ===
@@ -45,6 +109,7 @@ public class ScrabbleGame extends Game {
 		int score = 0;
 		ArrayList<Word> crossingWords = new ArrayList<Word>();
 		Word w = null;
+		Cell cell;
 		
 		if (!word.isValid()) {
 			System.out.println(word + " is not a valid word !");
@@ -53,7 +118,7 @@ public class ScrabbleGame extends Game {
 				
 		// Are all cells empty (or used in the word) ?
 		for (int i=0; i < word.getTiles().size(); i++) {
-			Cell cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)];
+			cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)];
 			
 			if (cell.count() > 0 && !cell.getTopTile().equals(word.getTiles().get(i))) {
 				System.out.println(word + " cannot be placed here !");
@@ -78,7 +143,11 @@ public class ScrabbleGame extends Game {
 			board.putTile(word.getTiles().get(i), word.getRowOfTile(i), word.getColOfTile(i));
 		}
 		
-		score += word.score();
+		score += word.score(this.board);
+		
+		for (int i=0; i < word.getTiles().size(); i++) {
+			board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)].setBonus(0);
+		}
 		
 		return score;
 	}
