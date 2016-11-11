@@ -110,19 +110,29 @@ public class ScrabbleGame extends Game {
 		ArrayList<Word> crossingWords = new ArrayList<Word>();
 		Word w = null;
 		Cell cell;
+		boolean in_a_word = false;
 		
 		if (!word.isValid()) {
 			System.out.println(word + " is not a valid word !");
 			return 0;
 		}
 				
-		// Are all cells empty (or used in the word) ?
+		// Check validity of position?
+		boolean centered = false;
+		
 		for (int i=0; i < word.getTiles().size(); i++) {
 			cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)];
 			
-			if (cell.count() > 0 && !cell.getTopTile().equals(word.getTiles().get(i))) {
-				System.out.println(word + " cannot be placed here !");
-				return 0;
+			if (word.getRowOfTile(i)==7 && word.getColOfTile(i)==7)
+				centered = true;
+			
+			if (cell.count() > 0) {
+				if (cell.getTopTile().equals(word.getTiles().get(i))) {
+					in_a_word = true;
+				} else {
+					System.out.println(word + " cannot be placed here !");
+					return 0;
+				}
 			}
 			
 			// Is there a crossing word at this tile ?
@@ -138,6 +148,16 @@ public class ScrabbleGame extends Game {
 			}
 		}
 		
+		if (!in_a_word && crossingWords.size() == 0 && !centered) {
+			System.out.println(word + " cannot be placed here !");
+			return 0;
+		}
+		
+		// Clear bonus
+		for (int i=0; i < word.getTiles().size(); i++) {
+			board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)].setBonus(0);
+		}
+		
 		// Drop the word
 		for (int i=0; i < word.getTiles().size(); i++) {
 			board.putTile(word.getTiles().get(i), word.getRowOfTile(i), word.getColOfTile(i));
@@ -145,9 +165,8 @@ public class ScrabbleGame extends Game {
 		
 		score += word.score(this.board);
 		
-		for (int i=0; i < word.getTiles().size(); i++) {
-			board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)].setBonus(0);
-		}
+		// Clear bonus and check if the word is at an available place
+		
 		
 		return score;
 	}
