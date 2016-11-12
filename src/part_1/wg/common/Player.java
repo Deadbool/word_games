@@ -3,7 +3,6 @@ package part_1.wg.common;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 import part_1.wg.Main;
 
@@ -92,14 +91,24 @@ public class Player implements Serializable {
 			}
 			
 		} while (!stop);
+		
+		// Searching for upper/lefter tiles
+		int r = word.getRowOfTile(-1);
+		int c = word.getColOfTile(-1);
+		while (board.validPosition(r, c) && board.getGrid()[r][c].count() > 0) {
+			word.setRow(r);
+			word.setCol(c);
+			word.getTiles().add(0, board.getGrid()[r][c].getTopTile());
+			r = word.getRowOfTile(-1);
+			c = word.getColOfTile(-1);
+		}
 					
 		return word;
 	}
 	
 	public void draw(Bag bag) {
-		Random rand = new Random(System.currentTimeMillis());
 		while (rack.size() < Player.RACK_SIZE) {
-			Tile t = bag.getLetters().get(rand.nextInt(bag.size()));
+			Tile t = bag.getLetters().get(Main.RAND.nextInt(bag.size()));
 			bag.getLetters().remove(t);
 			rack.add(t);
 		}

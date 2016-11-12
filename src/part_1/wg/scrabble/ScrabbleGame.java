@@ -95,12 +95,19 @@ public class ScrabbleGame extends Game {
 		System.out.print("Trying " + word + "... ");
 		
 		int score = applyWord(word);
-		if (score > 0) {
-			System.out.println("Well done ! You got " + score + " points.");
-			player.draw(bag);
-			player.setScore(player.getScore() + score);
-		} else {
-			player.getRack().addAll(word.getTiles());
+		while (true) {
+			if (score > 0) {
+				System.out.println("Well done ! You got " + score + " points.");
+				player.draw(bag);
+				player.setScore(player.getScore() + score);
+				break;
+			} else {
+				player.getRack().addAll(word.getTiles());
+				
+				word = player.askForAWord(board);
+				System.out.print("Trying " + word + "... ");
+				score = applyWord(word);
+			}
 		}
 	}
 
@@ -148,7 +155,7 @@ public class ScrabbleGame extends Game {
 			}
 		}
 		
-		if (!in_a_word && crossingWords.size() == 0 && !centered) {
+		if (!in_a_word && !centered) {
 			System.out.println(word + " cannot be placed here !");
 			return 0;
 		}
