@@ -153,6 +153,12 @@ public class ScrabbleGame extends Game {
 			return 0;
 		}
 		
+		// Increase score
+		for (Word wo : crossingWords) {
+			score += wo.score(this.board);
+		}
+		score += word.score(this.board);
+		
 		// Clear bonus
 		for (int i=0; i < word.getTiles().size(); i++) {
 			board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)].setBonus(0);
@@ -161,12 +167,7 @@ public class ScrabbleGame extends Game {
 		// Drop the word
 		for (int i=0; i < word.getTiles().size(); i++) {
 			board.putTile(word.getTiles().get(i), word.getRowOfTile(i), word.getColOfTile(i));
-		}
-		
-		score += word.score(this.board);
-		
-		// Clear bonus and check if the word is at an available place
-		
+		}		
 		
 		return score;
 	}
