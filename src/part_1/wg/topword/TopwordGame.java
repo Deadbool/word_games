@@ -31,4 +31,9 @@ public class TopwordGame extends Game {
 	public int applyWord(Word word) {
 		return 0;
 	}
+
+	@Override
+	public int scoreWord(Word word) {
+		return 0;
+	}
 }

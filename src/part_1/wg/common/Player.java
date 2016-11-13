@@ -2,7 +2,6 @@ package part_1.wg.common;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import part_1.wg.Main;
 
@@ -24,11 +23,7 @@ public class Player implements Serializable {
 	
 	// === Methods ===
 	public String toString() {
-		String r = this.name + " (score: " + this.score + ") has this rack : ";
-		Iterator<Tile> it = this.rack.iterator();
-		while (it.hasNext())
-			r += it.next();
-		return r;
+		return this.name;
 	}
 	
 	public Word askForAWord(Board board) {
@@ -51,6 +46,10 @@ public class Player implements Serializable {
 			System.out.print("Available cells:");
 			maxSize = Player.RACK_SIZE;
 			for (int i=0; i < maxSize; i++) {
+				if (!board.validPosition(word.getRow() +i*Word.ROW_INC[word.getOrientation()],
+				                        word.getCol() + i*Word.COL_INC[word.getOrientation()]))
+					break;
+				
 				cell = board.cell(word.getRow() +i*Word.ROW_INC[word.getOrientation()],
 						word.getCol() + i*Word.COL_INC[word.getOrientation()]);
 				System.out.print(" " + cell);
@@ -107,7 +106,7 @@ public class Player implements Serializable {
 	}
 	
 	public void draw(Bag bag) {
-		while (rack.size() < Player.RACK_SIZE) {
+		while (bag.size() > 0 && rack.size() < Player.RACK_SIZE) {
 			Tile t = bag.getLetters().get(Main.RAND.nextInt(bag.size()));
 			bag.getLetters().remove(t);
 			rack.add(t);

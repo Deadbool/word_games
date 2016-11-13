@@ -57,30 +57,6 @@ public class Word {
 		return ok;
 	}
 	
-	public int score(Board board) {
-		int score = 0;
-		Cell cell;
-		int coeff = 1;
-		int bonus = 0;
-		
-		for (int i=0; i < tiles.size(); i++) {
-			bonus = 1;
-			cell = board.getGrid()[getRowOfTile(i)][getColOfTile(i)]; 
-			
-			if (cell.bonus > 0) {
-				if (cell.bonus <= Cell.TRIPLE_LETTER) {
-					bonus = cell.bonus;
-				} else {
-					coeff *= cell.bonus - 5;
-				}
-			}
-			
-			score += tiles.get(i).getVal() * bonus;
-		}
-		
-		return score * coeff;
-	}
-	
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		for (Tile tile : tiles) {

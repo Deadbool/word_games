@@ -91,13 +91,15 @@ public class ScrabbleGame extends Game {
 	// === Methods ===
 	@Override
 	public void playTurn(Player player) {
+		System.out.println("=== "+player+" ===");
+		
 		Word word = player.askForAWord(board);
 		System.out.print("Trying " + word + "... ");
 		
 		int score = applyWord(word);
 		while (true) {
 			if (score > 0) {
-				System.out.println("Well done ! You got " + score + " points.");
+				System.out.println("Well done ! You got " + score + " points.\n");
 				player.draw(bag);
 				player.setScore(player.getScore() + score);
 				break;
@@ -120,7 +122,7 @@ public class ScrabbleGame extends Game {
 		boolean in_a_word = false;
 		
 		if (!word.isValid()) {
-			System.out.println(word + " is not a valid word !");
+			System.out.println(word + " is not a valid word !\n");
 			return 0;
 		}
 				
@@ -137,7 +139,7 @@ public class ScrabbleGame extends Game {
 				if (cell.getTopTile().equals(word.getTiles().get(i))) {
 					in_a_word = true;
 				} else {
-					System.out.println(word + " cannot be placed here !");
+					System.out.println(word + " cannot be placed here !\n");
 					return 0;
 				}
 			}
@@ -162,9 +164,9 @@ public class ScrabbleGame extends Game {
 		
 		// Increase score
 		for (Word wo : crossingWords) {
-			score += wo.score(this.board);
+			score += this.scoreWord(wo);
 		}
-		score += word.score(this.board);
+		score += this.scoreWord(word);
 		
 		// Clear bonus
 		for (int i=0; i < word.getTiles().size(); i++) {
@@ -177,5 +179,30 @@ public class ScrabbleGame extends Game {
 		}		
 		
 		return score;
+	}
+	
+	@Override
+	public int scoreWord(Word word) {
+		int score = 0;
+		Cell cell;
+		int coeff = 1;
+		int bonus = 0;
+		
+		for (int i=0; i < word.getTiles().size(); i++) {
+			bonus = 1;
+			cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)]; 
+			
+			if (cell.getBonus() > 0) {
+				if (cell.getBonus() <= Cell.TRIPLE_LETTER) {
+					bonus = cell.getBonus();
+				} else {
+					coeff *= cell.getBonus() - 5;
+				}
+			}
+			
+			score += word.getTiles().get(i).getVal() * bonus;
+		}
+		
+		return score * coeff;
 	}
 }

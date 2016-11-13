@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -50,11 +51,30 @@ public abstract class Game implements Serializable {
 		}
 		
 		while(true) {
-			for (Player player : players) {
-				System.out.println(player);
-			}
+			for (Player player : players)
+				System.out.println(player + " (score: " + player.getScore() + ")");
+			System.out.println("Tiles left in bag: " + bag.size());
 			System.out.println(board);
+			
 			playTurn(players.get(0));
+			
+			if (players.get(0).getRack().size() == 0) {
+				System.out.println("\n*** Finish ***");
+				System.out.println("Leaderboard :");
+				
+				players.sort(new Comparator<Player>() {
+					@Override
+					public int compare(Player a, Player b) {
+						return b.getScore() - a.getScore();
+					}
+					
+				});
+				
+				for (int i=0; i < players.size(); i++)
+					System.out.println((i+1) + ") " + players.get(i) + " - " + players.get(i).getScore());
+				
+				break;
+			}
 			
 			// Players rotation
 			Player tmp_player = players.get(0);
@@ -66,6 +86,8 @@ public abstract class Game implements Serializable {
 	public abstract void playTurn(Player player);
 	
 	public abstract int applyWord(Word word);
+	
+	public abstract int scoreWord(Word word);
 	
 	public boolean save(String path){
 		try {
