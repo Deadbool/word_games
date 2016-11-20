@@ -57,12 +57,16 @@ public class Word {
 		return ok;
 	}
 	
+	public boolean isValidTree() {
+		return Dictionary.get().search(this.toString());
+	}
+	
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		for (Tile tile : tiles) {
 			str.append(tile.getLet());
 		}
-		return str.toString();
+		return str.toString().toUpperCase();
 	}
 
 	// === Getters & Setters ===

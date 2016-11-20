@@ -6,11 +6,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
+import java.util.Scanner;
 
 public abstract class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 	static final public int MAX_PLAYER_COUNT = 4;
+	
+	public static final Scanner STDIN = new Scanner(System.in);
+	public static final Random RAND = new Random(1234);
 	
 	public static Game loadGame(String path) {
 		Game game = null;
@@ -45,6 +51,8 @@ public abstract class Game implements Serializable {
 	
 	// === Methods ===
 	public void launch() {
+		Collections.shuffle(players);
+		
 		// Initial draw
 		for (Player player : players) {
 			player.draw(bag);

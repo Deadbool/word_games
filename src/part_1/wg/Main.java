@@ -1,28 +1,38 @@
 package part_1.wg;
 
-import java.util.Random;
-import java.util.Scanner;
-
 import part_1.wg.common.Game;
 import part_1.wg.common.Player;
+import part_1.wg.common.Tile;
+import part_1.wg.common.Word;
+import part_1.wg.common.ConsolePlayer;
+import part_1.wg.common.Dictionary;
 import part_1.wg.scrabble.ScrabbleGame;
+import part_1.wg.topword.TopwordGame;
 
 public class Main {
-	public static final Scanner STDIN = new Scanner(System.in);
-	public static final Random RAND = new Random(System.currentTimeMillis());
-
+	
 	public static void main(String[] args) {
-		Player p1 = new Player("Player 1");
-		Player p2 = new Player("Player 2");
+		Player p1 = new ConsolePlayer("Player 1");
+		Player p2 = new ConsolePlayer("Player 2");
 		
 		System.out.println("***** Scrabble *****");
 		
 		Game scrabble = ScrabbleGame.newGame(p1, p2);
+		Game topword = TopwordGame.newGame(p1, p2);
 		
-		/*p1.setScore(10);
-		scrabble.save("saves/test.wg");
-		scrabble = Game.loadGame("saves/test.wg");*/
+		topword.launch();
+				
+		// CONSTITUTIONNALISASSIONS
+		/*Word word = new Word();
+		word.addTile(new Tile("CONSTITUTIONNALISASSIONS"));
+		long start;
 		
-		scrabble.launch();
+		start = System.currentTimeMillis();
+		System.out.print(word.isValid());
+		System.out.println(" - " + (System.currentTimeMillis() - start));
+		
+		start = System.currentTimeMillis();
+		System.out.print(word.isValidTree());
+		System.out.println(" - " + (System.currentTimeMillis() - start));*/
 	}
 }
