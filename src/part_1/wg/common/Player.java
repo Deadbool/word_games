@@ -34,6 +34,22 @@ public abstract class Player implements Serializable {
 		}
 	}
 	
+	public boolean exchange(Bag bag, ArrayList<Tile> tiles) {
+		if (bag.size() < tiles.size())
+			return false;
+		
+		for (int i=0; i < tiles.size(); i++) {
+			Tile t = bag.getLetters().get(Game.RAND.nextInt(bag.size()));
+			bag.getLetters().remove(t);
+			rack.add(t);
+		}
+		
+		bag.getLetters().addAll(tiles);
+		this.rack.removeAll(tiles);
+		
+		return true;
+	}
+	
 	// === Getters & Setters ===
 	public int getScore() {
 		return score;
