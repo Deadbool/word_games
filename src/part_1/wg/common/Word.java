@@ -1,11 +1,6 @@
 package part_1.wg.common;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Word {
 	public static final String DICTIONARY_PATH = "config/dico.txt";
@@ -43,22 +38,9 @@ public class Word {
 	}
 
 	// === Methods ===
-	public boolean isValid() {
-		boolean ok = false;
-		String str = this.toString();
-		
-		try {
-			List<String> words = Files.lines(Paths.get(Word.DICTIONARY_PATH)).collect(Collectors.toList());
-			ok = words.contains(str);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return ok;
-	}
 	
-	public boolean isValidTree() {
-		return Dictionary.get().search(this.toString());
+	public boolean isValid() {
+		return Dictionary.get().contains(this.toString());
 	}
 	
 	public String toString() {
