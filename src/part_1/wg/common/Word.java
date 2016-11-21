@@ -11,6 +11,7 @@ public class Word {
 	
 	// === Attributes ===
 	private ArrayList<Tile> tiles;
+	private ArrayList<Boolean> news;
 	private int row;
 	private int col;
 	private int orientation;
@@ -18,6 +19,7 @@ public class Word {
 	// === Constructor ===
 	public Word() {
 		this.tiles = new ArrayList<Tile>();
+		this.news = new ArrayList<Boolean>();
 		this.row = 0;
 		this.col = 0;
 		this.orientation = 0;
@@ -25,6 +27,7 @@ public class Word {
 	
 	public Word(int r, int c, int orientation) {
 		this.tiles = new ArrayList<Tile>();
+		this.news = new ArrayList<Boolean>();
 		this.row = r;
 		this.col = c;
 		this.orientation = orientation;
@@ -32,6 +35,7 @@ public class Word {
 	
 	public Word(ArrayList<Tile> tiles, int r, int c, int orientation) {
 		this.tiles = tiles;
+		this.news = new ArrayList<Boolean>();
 		this.row = r;
 		this.col = c;
 		this.orientation = orientation;
@@ -49,6 +53,16 @@ public class Word {
 			str.append(tile.getLet());
 		}
 		return str.toString().toUpperCase();
+	}
+	
+	public void addTile(Tile t) {
+		this.tiles.add(t);
+		this.news.add(true);
+	}
+	
+	public void addTile(Tile t, boolean newTile) {
+		this.tiles.add(t);
+		this.news.add(newTile);
 	}
 
 	// === Getters & Setters ===
@@ -82,10 +96,19 @@ public class Word {
 	public int getColOfTile(int tileIndex) {
 		return (orientation == Word.VERTICAL) ? col : col + tileIndex;
 	}
-	public void addTile(Tile t) {
-		this.tiles.add(t);
-	}
 	public int length() {
 		return this.tiles.size();
+	}
+	public ArrayList<Boolean> getNews() {
+		return news;
+	}
+	public void setNews(ArrayList<Boolean> news) {
+		this.news = news;
+	}
+	public boolean isNew(int i) {
+		return this.news.get(i);
+	}
+	public void setNew(int i, boolean b) {
+		this.news.set(i, b);
 	}
 }

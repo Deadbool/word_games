@@ -97,6 +97,8 @@ public abstract class Game implements Serializable {
 	
 	public abstract int scoreWord(Word word);
 	
+	public abstract Word crossingWord(Word word, int t);
+	
 	public boolean save(String path){
 		try {
 			FileOutputStream fout = new FileOutputStream(path);

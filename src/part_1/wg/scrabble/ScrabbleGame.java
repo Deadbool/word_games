@@ -120,6 +120,7 @@ public class ScrabbleGame extends Game {
 		Word w = null;
 		Cell cell;
 		boolean in_a_word = false;
+		boolean newTiles = false;
 		
 		if (!word.isValid()) {
 			System.out.println(word + " is not a valid word !\n");
@@ -138,14 +139,17 @@ public class ScrabbleGame extends Game {
 			if (cell.count() > 0) {
 				if (cell.getTopTile().equals(word.getTiles().get(i))) {
 					in_a_word = true;
+					word.setNew(i, false);
 				} else {
 					System.out.println(word + " cannot be placed here !\n");
 					return 0;
 				}
+			} else {
+				newTiles = true;
 			}
 			
 			// Is there a crossing word at this tile ?
-			w = board.crossingWord(word, i);
+			w = this.crossingWord(word, i);
 			if (w != null) {
 				// Is this crossing word valid ?
 				if (w.isValid()) {
@@ -155,6 +159,11 @@ public class ScrabbleGame extends Game {
 					return 0;
 				}
 			}
+		}
+		
+		if (!newTiles) {
+			System.out.println("You have to use new tiles !");
+			return 0;
 		}
 		
 		if (!in_a_word && !centered) {
@@ -204,5 +213,46 @@ public class ScrabbleGame extends Game {
 		}
 		
 		return score * coeff;
+	}
+	
+	@Override
+	public Word crossingWord(Word word, int t) {
+		if (this.board.getGrid()[word.getRowOfTile(t)][word.getColOfTile(t)].count() > 0)
+			return null;
+		
+		Word cross = new Word(word.getRowOfTile(t), word.getColOfTile(t), 1 - word.getOrientation());
+		int c, r;
+		
+		// Searching for upper/lefter tiles
+		r = cross.getRowOfTile(-1);
+		c = cross.getColOfTile(-1);
+		while (this.board.validPosition(r, c) && this.board.getGrid()[r][c].count() > 0) {
+			cross.setRow(r);
+			cross.setCol(c);
+			r = cross.getRowOfTile(-1);
+			c = cross.getColOfTile(-1);
+		}
+		
+		// Adding all under/righter tile to the crossing word
+		int i = 0;
+		r = cross.getRowOfTile(i);
+		c = cross.getColOfTile(i);
+		while (this.board.validPosition(r, c)) {
+			if (r == word.getRowOfTile(t) && c == word.getColOfTile(t))
+				cross.addTile(word.getTiles().get(t));
+			else {
+				if (this.board.getGrid()[r][c].count() > 0)
+					cross.addTile(this.board.getGrid()[r][c].getTopTile());
+				else
+					break;
+			}
+			
+			++i;
+			r = cross.getRowOfTile(i);
+			c = cross.getColOfTile(i);
+		}
+		
+		// If length == 1 -> there is no "real" crossing word, just the leter itself
+		return (cross.length() > 1) ? cross : null;
 	}
 }

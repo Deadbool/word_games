@@ -28,7 +28,7 @@ public class Tile implements Serializable {
 	}
 	
 	public boolean equals(Object o) {
-		return letter.equals(((Tile) o).letter);
+		return letter.toUpperCase().equals(((Tile) o).letter.toUpperCase());
 	}
 	
 	// === Getters & Setters ===

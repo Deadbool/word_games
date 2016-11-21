@@ -26,6 +26,14 @@ public class Cell implements Serializable {
 		this.bonus = bonus;
 	}
 	
+	public void put(Tile tile) {
+		this.stack.add(tile);
+	}
+	
+	public void pick() {
+		this.stack.remove(this.stack.size() - 1);
+	}
+	
 	public String toString() {
 		return (count() > 0) ? getTopTile().toString() : (bonus > 0) ? String.valueOf(bonus) : ".";
 	}

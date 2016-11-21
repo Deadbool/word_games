@@ -41,46 +41,6 @@ public class Board implements Serializable {
 	public boolean validPosition(int r, int c) {
 		return r >= 0 && c >= 0 && r < size && c < size;
 	}
-	
-	public Word crossingWord(Word word, int t) {
-		if (grid[word.getRowOfTile(t)][word.getColOfTile(t)].count() > 0)
-			return null;
-		
-		Word cross = new Word(word.getRowOfTile(t), word.getColOfTile(t), 1 - word.getOrientation());
-		int c, r;
-		
-		// Searching for upper/lefter tiles
-		r = cross.getRowOfTile(-1);
-		c = cross.getColOfTile(-1);
-		while (validPosition(r, c) && grid[r][c].count() > 0) {
-			cross.setRow(r);
-			cross.setCol(c);
-			r = cross.getRowOfTile(-1);
-			c = cross.getColOfTile(-1);
-		}
-		
-		// Adding all under/righter tile to the crossing word
-		int i = 0;
-		r = cross.getRowOfTile(i);
-		c = cross.getColOfTile(i);
-		while (validPosition(r, c)) {
-			if (r == word.getRowOfTile(t) && c == word.getColOfTile(t))
-				cross.addTile(word.getTiles().get(t));
-			else {
-				if (grid[r][c].count() > 0)
-					cross.addTile(grid[r][c].getTopTile());
-				else
-					break;
-			}
-			
-			++i;
-			r = cross.getRowOfTile(i);
-			c = cross.getColOfTile(i);
-		}
-		
-		// If length == 1 -> there is no "real" crossing word, just the leter itself
-		return (cross.length() > 1) ? cross : null;
-	}
 
 	// === Getters & Setters ===
 	public int getSize() {
