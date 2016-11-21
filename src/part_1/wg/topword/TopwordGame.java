@@ -75,14 +75,15 @@ public class TopwordGame extends Game {
 				centered = true;
 			
 			if (cell.count() > 0) {
+				in_a_word = true;
+				
 				if (cell.getTopTile().equals(word.getTiles().get(i))) {
-					in_a_word = true;
 					word.setNew(i, false);
 				} else {
 					if (cell.count() + 1 > TOPWORD_MAX_STACKED_TILES) {
 						System.out.println(word + " cannot be placed here !\n");
 						return 0;
-					}		
+					}
 					
 					newTiles = true;
 				}
@@ -132,18 +133,21 @@ public class TopwordGame extends Game {
 		int score = 0;
 		int coeff = 2;
 		Cell cell;
+		int news = 0;
 		
 		for (int i=0; i < word.getTiles().size(); i++) {
 			cell = board.getGrid()[word.getRowOfTile(i)][word.getColOfTile(i)];
 			if (cell.count() > 0)
 				coeff = 1;
 			
+			news += (word.isNew(i)) ? 1 : 0;
+			
 			score += ((word.isNew(i)) ? cell.count() : 0)
 					+ 1 + word.getTiles().get(i).getVal();
 			word.getTiles().get(i).setVal(0);
 		}
 		
-		return score * coeff;
+		return score * coeff + ((news < Player.RACK_SIZE) ? 0 : 50);
 	}
 	
 	@Override

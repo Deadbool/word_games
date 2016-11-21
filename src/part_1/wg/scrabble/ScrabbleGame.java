@@ -196,6 +196,7 @@ public class ScrabbleGame extends Game {
 		Cell cell;
 		int coeff = 1;
 		int bonus = 0;
+		int news = 0;
 		
 		for (int i=0; i < word.getTiles().size(); i++) {
 			bonus = 1;
@@ -209,10 +210,12 @@ public class ScrabbleGame extends Game {
 				}
 			}
 			
+			news += (word.isNew(i)) ? 1 : 0;
+			
 			score += word.getTiles().get(i).getVal() * bonus;
 		}
 		
-		return score * coeff;
+		return score * coeff + ((news < Player.RACK_SIZE) ? 0 : 50);
 	}
 	
 	@Override
