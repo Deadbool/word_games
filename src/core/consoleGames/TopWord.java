@@ -12,8 +12,8 @@ public class TopWord {
 		
 		System.out.println("***** TopWord *****");
 		
-		Game topword = TopwordGame.newGame(p1, p2);
+		Game topword = new TopwordGame(p1, p2);
 		
-		topword.launch();
+		topword.start();
 	}
 }

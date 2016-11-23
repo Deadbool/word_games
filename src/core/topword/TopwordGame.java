@@ -14,10 +14,6 @@ public class TopwordGame extends Game {
 	static final public int TOPWORD_BOARD_SIZE = 8;
 	static final public int TOPWORD_MAX_STACKED_TILES = 5;
 	
-	public static TopwordGame newGame(Player...players) {
-		return new TopwordGame(players);
-	}
-	
 	// === Constructor ===
 	public TopwordGame(Player...players) {
 		super(players);
@@ -38,7 +34,7 @@ public class TopwordGame extends Game {
 			if (score > 0) {
 				System.out.println("Well done ! You got " + score + " points.\n");
 				player.draw(bag);
-				player.setScore(player.getScore() + score);
+				player.incScore(score);
 				break;
 			} else {
 				player.getRack().addAll(word.getTiles());

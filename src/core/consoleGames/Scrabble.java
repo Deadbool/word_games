@@ -12,8 +12,8 @@ public class Scrabble {
 		
 		System.out.println("***** Scrabble *****");
 		
-		Game scrabble = ScrabbleGame.newGame(p1, p2);
+		Game scrabble = new ScrabbleGame(p1, p2);
 		
-		scrabble.launch();
+		scrabble.start();
 	}
 }

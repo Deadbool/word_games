@@ -13,12 +13,8 @@ public class ScrabbleGame extends Game {
 	private static final long serialVersionUID = 1L;
 	static final public int SCRABBLE_BOARD_SIZE = 15;
 	
-	public static ScrabbleGame newGame(Player...players) {
-		return new ScrabbleGame(players);
-	}
-	
 	// === Constructor ===
-	protected ScrabbleGame(Player...players) {
+	public ScrabbleGame(Player...players) {
 		super(players);
 		super.board = new Board(ScrabbleGame.SCRABBLE_BOARD_SIZE);
 		super.bag = new Bag("config/scrabble_bag_fr.txt");
@@ -101,7 +97,7 @@ public class ScrabbleGame extends Game {
 			if (score > 0) {
 				System.out.println("Well done ! You got " + score + " points.\n");
 				player.draw(bag);
-				player.setScore(player.getScore() + score);
+				player.incScore(score);
 				break;
 			} else {
 				player.getRack().addAll(word.getTiles());

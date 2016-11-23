@@ -8,66 +8,88 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 
+ * Game words bag model.
+ * 
+ * Players will draw their tile here.
+ * 
+ * @author Nicolas Guégan
+ *
+ */
+
 public class Bag implements Serializable {
 	private static final long serialVersionUID = 1L;
-	static private final String CONFIG_FILES_SEPARATOR = ":";
-	static private final int INDEX_FOR_LETTER = 0;
-	static private final int INDEX_FOR_COUNT = 1;
-	static private final int INDEX_FOR_VALUE = 2;
+
+	private static final String CONFIG_FILES_SEPARATOR = ":";
+	private static final int INDEX_FOR_LETTER = 0;
+	private static final int INDEX_FOR_COUNT = 1;
+	private static final int INDEX_FOR_VALUE = 2;
 	
-	// === Attributes ===
-	protected ArrayList<Tile> content;
+	protected ArrayList<Tile> tiles;
 	
-	// Constructor
+	/**
+	 * Constructor.
+	 * 
+	 * Create an empty word game bag.
+	 */
 	public Bag() {
-		this.content = new ArrayList<Tile>();
+		this.tiles = new ArrayList<Tile>();
 	}
-	
+
+	/**
+	 * Constructor.
+	 * 
+	 * Create a word game bag thanks to a configuration file.
+	 * @param config_file_path
+	 */
 	public Bag(String config_file_path) {
-		this.content = new ArrayList<Tile>();
+		this.tiles = new ArrayList<Tile>();
 		try {
 			List<String> lines = Files.lines(Paths.get(config_file_path)).collect(Collectors.toList());
-			
+
 			// Skip the first line which is a comment
 			lines.remove(0);
-			
+
 			for (String l : lines) {
 				String[] fields = l.split(CONFIG_FILES_SEPARATOR);
 				try {
 					int count = Integer.parseInt(fields[INDEX_FOR_COUNT]);
 					int value = Integer.parseInt(fields[INDEX_FOR_VALUE]);
-					
-					for (int i=0; i < count; i++) {
-						this.content.add(new Tile(fields[INDEX_FOR_LETTER], value));
+
+					for (int i = 0; i < count; i++) {
+						this.tiles.add(new Tile(fields[INDEX_FOR_LETTER], value));
 					}
-					
+
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	// === Methods ===
 	public String toString() {
-		String s = "Bag of " + this.content.size() + " tiles : ";
-		Iterator<Tile> it = this.content.iterator();
+		String s = "Bag of " + this.tiles.size() + " tiles : ";
+		Iterator<Tile> it = this.tiles.iterator();
 		while (it.hasNext())
 			s += it.next();
 		return s;
 	}
-	
-	// === Getters & Setters ===
-	public ArrayList<Tile> getLetters() {
-		return content;
+
+	/**
+	 * @return Tiles in the bag.
+	 */
+	public ArrayList<Tile> getTiles() {
+		return tiles;
 	}
-	public void setLetters(ArrayList<Tile> content) {
-		this.content = content;
-	}
+
+	/**
+	 * @return The number of tiles in the bag.
+	 */
 	public int size() {
-		return this.content.size();
+		return this.tiles.size();
 	}
 }
