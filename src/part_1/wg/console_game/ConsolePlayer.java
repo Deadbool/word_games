@@ -1,4 +1,11 @@
-package part_1.wg.common;
+package part_1.wg.console_game;
+
+import part_1.wg.common.Board;
+import part_1.wg.common.Cell;
+import part_1.wg.common.Game;
+import part_1.wg.common.Player;
+import part_1.wg.common.Tile;
+import part_1.wg.common.Word;
 
 public class ConsolePlayer extends Player {	
 	private static final long serialVersionUID = 1L;

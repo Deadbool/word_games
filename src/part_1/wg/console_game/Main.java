@@ -1,8 +1,7 @@
-package part_1.wg;
+package part_1.wg.console_game;
 
 import part_1.wg.common.Game;
 import part_1.wg.common.Player;
-import part_1.wg.common.ConsolePlayer;
 import part_1.wg.scrabble.ScrabbleGame;
 import part_1.wg.topword.TopwordGame;
 
