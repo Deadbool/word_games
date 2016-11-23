@@ -162,25 +162,45 @@ public class Word {
 		this.orientation = orientation;
 	}
 	
-	
+	/**
+	 * Get the row of a word's particular tile.
+	 * @param tileIndex
+	 * @return row
+	 */
 	public int getRowOfTile(int tileIndex) {
 		return (orientation == Word.HORIZONTAL) ? row : row + tileIndex;
 	}
+	
+	/**
+	 * Get the column of a word's particular tile.
+	 * @param tileIndex
+	 * @return column
+	 */
 	public int getColOfTile(int tileIndex) {
 		return (orientation == Word.VERTICAL) ? col : col + tileIndex;
 	}
+	
+	/**
+	 * @return The number of tiles composing the word.
+	 */
 	public int length() {
 		return this.tiles.size();
 	}
-	public ArrayList<Boolean> getNews() {
-		return news;
-	}
-	public void setNews(ArrayList<Boolean> news) {
-		this.news = news;
-	}
+	
+	/**
+	 * Use this function to know if a tile of the world is already on the board or not.
+	 * @param i, the tile index in the word
+	 * @return false if the tile is already on the board, else true
+	 */
 	public boolean isNew(int i) {
 		return this.news.get(i);
 	}
+	
+	/**
+	 * Set a tile of the word as already present on the board.
+	 * @param i, the tile index in the word
+	 * @param b, false if the tile is already on the board, else true
+	 */
 	public void setNew(int i, boolean b) {
 		this.news.set(i, b);
 	}

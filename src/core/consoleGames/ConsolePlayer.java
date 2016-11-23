@@ -7,14 +7,32 @@ import core.common.Player;
 import core.common.Tile;
 import core.common.Word;
 
+/**
+ * Word game player based on console interactions.
+ * 
+ * @author Nicolas Guégan
+ *
+ */
+
 public class ConsolePlayer extends Player {	
 	private static final long serialVersionUID = 1L;
 
-	// === Constructor ===
+	/**
+	 * Constructor.
+	 * 
+	 * Create a new ConsolePlayer with a his name.
+	 * 
+	 * @param name
+	 */
 	public ConsolePlayer(String name) {
 		super(name);
 	}
 	
+	/**
+	 * Ask the player the word he wants to put on the board.
+	 * @param board
+	 * @return word, The chosen word.
+	 */
 	public Word askForAWord(Board board) {
 		Word word;
 		boolean stop, found;

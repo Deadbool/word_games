@@ -4,6 +4,13 @@ import core.common.Game;
 import core.common.Player;
 import core.topword.TopwordGame;
 
+/**
+ * A console TopWord game with 2 players.
+ * 
+ * @author Nicolas Guégan
+ *
+ */
+
 public class TopWord {
 	
 	public static void main(String[] args) {

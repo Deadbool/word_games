@@ -9,11 +9,23 @@ import core.common.Game;
 import core.common.Player;
 import core.common.Word;
 
+/**
+ * Scrabble game model composed of players, a board and a bag of tiles.
+ * 
+ * @author Nicolas Guégan
+ *
+ */
+
 public class ScrabbleGame extends Game {
 	private static final long serialVersionUID = 1L;
 	static final public int SCRABBLE_BOARD_SIZE = 15;
 	
-	// === Constructor ===
+	/**
+	 * Constructor.
+	 * 
+	 *  Create a new Scrabble game from a list of players.
+	 * @param players
+	 */
 	public ScrabbleGame(Player...players) {
 		super(players);
 		super.board = new Board(ScrabbleGame.SCRABBLE_BOARD_SIZE);
@@ -84,7 +96,10 @@ public class ScrabbleGame extends Game {
 		board.getGrid()[center - 6][center - 2].setBonus(bonus);
 	}
 
-	// === Methods ===
+	/**
+	 * Play the turn of a player.
+	 * @param player
+	 */
 	@Override
 	public void playTurn(Player player) {
 		System.out.println("=== "+player+" ===");
@@ -109,6 +124,11 @@ public class ScrabbleGame extends Game {
 		}
 	}
 
+	/**
+	 * Put a word on the board after checking it's validity.
+	 * @param word
+	 * @return The score for this turn.
+	 */
 	@Override
 	public int applyWord(Word word) {
 		int score = 0;
@@ -186,6 +206,11 @@ public class ScrabbleGame extends Game {
 		return score;
 	}
 	
+	/**
+	 * Compute the score of a word on the current board.
+	 * @param word
+	 * @return score
+	 */
 	@Override
 	public int scoreWord(Word word) {
 		int score = 0;
@@ -214,6 +239,13 @@ public class ScrabbleGame extends Game {
 		return score * coeff + ((news < Player.RACK_SIZE) ? 0 : 50);
 	}
 	
+
+	/**
+	 * Detect the crossing word for a given tile of a word.
+	 * @param word
+	 * @param t, The index of the tile to check.
+	 * @return The crossing word if there is one, else null
+	 */
 	@Override
 	public Word crossingWord(Word word, int t) {
 		if (this.board.getGrid()[word.getRowOfTile(t)][word.getColOfTile(t)].count() > 0)

@@ -4,6 +4,13 @@ import core.common.Game;
 import core.common.Player;
 import core.scrabble.ScrabbleGame;
 
+/**
+ * A console Scrabble game with 2 players.
+ * 
+ * @author Nicolas Guégan
+ *
+ */
+
 public class Scrabble {
 	
 	public static void main(String[] args) {
