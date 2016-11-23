@@ -7,7 +7,7 @@ import core.topword.TopwordGame;
 /**
  * A console TopWord game with 2 players.
  * 
- * @author Nicolas Guégan
+ * @author Nicolas GuÃ©gan
  *
  */
 

@@ -10,7 +10,7 @@ import core.common.Word;
 /**
  * Word game player based on console interactions.
  * 
- * @author Nicolas Guégan
+ * @author Nicolas GuÃ©gan
  *
  */
 

@@ -7,7 +7,7 @@ import core.scrabble.ScrabbleGame;
 /**
  * A console Scrabble game with 2 players.
  * 
- * @author Nicolas Guégan
+ * @author Nicolas GuÃ©gan
  *
  */
 

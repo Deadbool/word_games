@@ -12,7 +12,7 @@ import core.common.Word;
 /**
  * TopWord game model composed of players, a board and a bag of tiles.
  * 
- * @author Nicolas Guégan
+ * @author Nicolas GuÃ©gan
  *
  */
 
