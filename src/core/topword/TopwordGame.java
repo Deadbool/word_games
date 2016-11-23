@@ -1,13 +1,13 @@
-package part_1.wg.topword;
+package core.topword;
 
 import java.util.ArrayList;
 
-import part_1.wg.common.Bag;
-import part_1.wg.common.Board;
-import part_1.wg.common.Cell;
-import part_1.wg.common.Game;
-import part_1.wg.common.Player;
-import part_1.wg.common.Word;
+import core.common.Bag;
+import core.common.Board;
+import core.common.Cell;
+import core.common.Game;
+import core.common.Player;
+import core.common.Word;
 
 public class TopwordGame extends Game {
 	private static final long serialVersionUID = 1L;

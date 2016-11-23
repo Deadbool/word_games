@@ -1,4 +1,4 @@
-package part_1.wg.common;
+package core.common;
 
 import java.io.Serializable;
 import java.nio.file.Files;

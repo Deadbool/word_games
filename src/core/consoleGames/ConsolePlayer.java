@@ -1,11 +1,11 @@
-package part_1.wg.console_game;
+package core.consoleGames;
 
-import part_1.wg.common.Board;
-import part_1.wg.common.Cell;
-import part_1.wg.common.Game;
-import part_1.wg.common.Player;
-import part_1.wg.common.Tile;
-import part_1.wg.common.Word;
+import core.common.Board;
+import core.common.Cell;
+import core.common.Game;
+import core.common.Player;
+import core.common.Tile;
+import core.common.Word;
 
 public class ConsolePlayer extends Player {	
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class ConsolePlayer extends Player {
 			System.out.print("Column ? "); word.setCol(Integer.parseInt(Game.STDIN.nextLine()));
 			System.out.print("Orientation ? "); word.setOrientation(Integer.parseInt(Game.STDIN.nextLine()));
 			
-			System.out.print("Available cells:");
+			System.out.print("Available cells: ");
 			maxSize = ConsolePlayer.RACK_SIZE;
 			for (int i=0; i < maxSize; i++) {
 				if (!board.validPosition(word.getRow() +i*Word.ROW_INC[word.getOrientation()],
