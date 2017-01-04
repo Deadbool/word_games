@@ -70,8 +70,9 @@ public abstract class Player implements Serializable {
 			rack.add(t);
 		}
 		
-		bag.getTiles().addAll(tiles);
-		this.rack.removeAll(tiles);
+		for (int i=0; i < tiles.size(); i++) {
+			bag.getTiles().add(tiles.get(i));
+		}
 		
 		return true;
 	}
