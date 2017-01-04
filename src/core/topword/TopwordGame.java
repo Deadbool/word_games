@@ -7,6 +7,7 @@ import core.common.Board;
 import core.common.Cell;
 import core.common.Game;
 import core.common.Player;
+import core.common.Tile;
 import core.common.Word;
 
 /**
@@ -51,9 +52,7 @@ public class TopwordGame extends Game {
 				player.draw(bag);
 				player.incScore(score);
 				break;
-			} else {
-				player.getRack().addAll(word.getTiles());
-				
+			} else {				
 				word = player.askForAWord(board);
 				System.out.print("Trying " + word + "... ");
 				score = applyWord(word);
@@ -138,7 +137,11 @@ public class TopwordGame extends Game {
 		
 		// Drop the word
 		for (int i=0; i < word.getTiles().size(); i++) {
-			board.putTile(word.getTiles().get(i), word.getRowOfTile(i), word.getColOfTile(i));
+			Tile tile = word.getTiles().get(i);
+			board.putTile(tile, word.getRowOfTile(i), word.getColOfTile(i));
+			if (word.isNew(i)) {
+				players.get(0).getRack().remove(tile);
+			}
 		}		
 		
 		return score;

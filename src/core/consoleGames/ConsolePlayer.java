@@ -1,5 +1,7 @@
 package core.consoleGames;
 
+import java.util.ArrayList;
+
 import core.common.Board;
 import core.common.Cell;
 import core.common.Game;
@@ -39,6 +41,7 @@ public class ConsolePlayer extends Player {
 		String input;
 		Cell cell;
 		int maxSize;
+		ArrayList<Tile> removedTiles = new ArrayList<Tile>();
 		
 		do {
 			stop = true;
@@ -74,6 +77,7 @@ public class ConsolePlayer extends Player {
 				for (Tile tile : rack) {
 					if (tile.getLet().equals(let)) {
 						word.addTile(tile);
+						removedTiles.add(tile);
 						rack.remove(tile);
 						found = true;
 						break;
@@ -108,6 +112,8 @@ public class ConsolePlayer extends Player {
 			r = word.getRowOfTile(-1);
 			c = word.getColOfTile(-1);
 		}
+		
+		rack.addAll(removedTiles);
 					
 		return word;
 	}
