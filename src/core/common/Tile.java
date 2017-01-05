@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Tile implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	public static final Tile JOKER = new Tile("_");
+	
 	protected String letter; // String because of the "Qu" letter of topword
 	protected int value; // value of the letter (points)
 	
@@ -21,7 +23,7 @@ public class Tile implements Serializable {
 	 * Create a new tile with a letter, setting its value to 0. 
 	 * @param let, The tile's letter
 	 */
-	public Tile(String let) {
+	private Tile(String let) {
 		this.letter = let;
 		this.value = 0;
 	}
@@ -36,6 +38,10 @@ public class Tile implements Serializable {
 	public Tile(String let, int val) {
 		this.letter = let;
 		this.value = val;
+	}
+	
+	public static Tile createUsedJoker(String let) {
+		return new Tile(let);
 	}
 	
 	public String toString() {

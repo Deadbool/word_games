@@ -78,6 +78,71 @@ public abstract class Player implements Serializable {
 	}
 	
 	/**
+	 * Check if the word can be formed with current letters and at this position.
+	 * @param word
+	 * @param input
+	 * @param board
+	 * @return true if word and position are ok, else false
+	 */
+	protected boolean checkWord(Word word, String input, Board board) {
+		boolean found;
+		ArrayList<Tile> removedTiles = new ArrayList<Tile>();
+		Cell cell;
+		
+		int jokers = 0;
+		for (Tile tile : rack) {
+			jokers += (tile.equals(Tile.JOKER)) ? 1 : 0;
+		}
+		
+		for (int i=0; i < input.length(); i++) {
+			found = false;
+			String let = input.substring(i,i+1);
+			for (Tile tile : rack) {
+				if (tile.getLet().equals(let)) {
+					word.addTile(tile);
+					removedTiles.add(tile);
+					rack.remove(tile);
+					found = true;
+					break;
+				}
+			}
+			
+			if (!found) {
+				cell = board.cell(word.getRow() + i*Word.ROW_INC[word.getOrientation()], 
+						word.getCol() + i*Word.COL_INC[word.getOrientation()]);
+				
+				if (cell.count() > 0 && cell.getTopTile().getLet().equals(let)) {
+					word.addTile(cell.getTopTile());
+				} else if (jokers > 0) {
+					--jokers;
+					word.addTile(Tile.createUsedJoker(let));
+				} else {
+					// If we arrive here it's because an input letter is not in rack -> ask again
+					rack.addAll(word.getTiles());
+					System.out.println("You cannot write " + input + " here !");
+					
+					return false;
+				}
+			}
+		}
+		
+		// Searching for upper/lefter tiles
+		int r = word.getRowOfTile(-1);
+		int c = word.getColOfTile(-1);
+		while (board.validPosition(r, c) && board.getGrid()[r][c].count() > 0) {
+			word.setRow(r);
+			word.setCol(c);
+			word.getTiles().add(0, board.getGrid()[r][c].getTopTile());
+			r = word.getRowOfTile(-1);
+			c = word.getColOfTile(-1);
+		}
+		
+		rack.addAll(removedTiles);
+		
+		return true;
+	}
+	
+	/**
 	 * @return The player's score.
 	 */
 	public int getScore() {

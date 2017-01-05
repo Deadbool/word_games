@@ -140,7 +140,8 @@ public class TopwordGame extends Game {
 			Tile tile = word.getTiles().get(i);
 			board.putTile(tile, word.getRowOfTile(i), word.getColOfTile(i));
 			if (word.isNew(i)) {
-				players.get(0).getRack().remove(tile);
+				if (!players.get(0).getRack().remove(tile))
+					players.get(0).getRack().remove(Tile.JOKER);
 			}
 		}		
 		
